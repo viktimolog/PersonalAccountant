@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">PersonalAccountant</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btnAuth">Authorization</string>
+    <string name="btnReg">Registration</string>
+    <string name="btnDelAcc">Del</string>
+    <string name="btnUpdAcc">Update</string>
+    <string name="btnNewAcc">New</string>
+    <string name="nameAcc">Name of Account: </string>
+    <string name="amountAcc">Amount of Account: </string>
+    <string name="amountStartSum">0</string>
+    <string name="currencyAcc">Currency of Account: </string>
+    <string name="btnAddNewAcc">Add</string>
+    <string name="btnNewTr">New Transaction</string>
+
+    <string-array name="currency">
+        <item>UAH</item>
+        <item>USD</item>
+    </string-array>
+
+</resources>

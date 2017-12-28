@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "708240129965",
+    "firebase_url": "https://personalaccountant-7b038.firebaseio.com",
+    "project_id": "personalaccountant-7b038",
+    "storage_bucket": "personalaccountant-7b038.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708240129965:android:14db556c6aeec08b",
+        "android_client_info": {
+          "package_name": "com.incode_it.test2.koganov.personalaccountant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708240129965-gd4446qe5gm041najdlkv59gvs9om9mb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.incode_it.test2.koganov.personalaccountant",
+            "certificate_hash": "09d753b24cb55dc7d2530e3ea4050a6a6af2916c"
+          }
+        },
+        {
+          "client_id": "708240129965-2365070dl3at20gmt6duoah9is3jukb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX77SBhlUglJxO1WbhjdYN-JS2NlksWKk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708240129965-2365070dl3at20gmt6duoah9is3jukb5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
