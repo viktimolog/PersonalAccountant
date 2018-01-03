@@ -8,23 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -80,9 +68,7 @@ public class MainActivity extends Activity
         tryEncrypt();
 
         con = new Controller(this);
-
         installFragment(new FirebaseLoginFragment(), false);
-
     }
 
     /**
@@ -177,6 +163,7 @@ public class MainActivity extends Activity
                 // The user canceled or didn’t complete the lock screen
                 // operation. Go to error/cancellation flow.
                 Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
     }
