@@ -6,7 +6,7 @@
     <string name="btnReg">Registration</string>
     <string name="btnDelAcc">Del</string>
     <string name="btnUpdAcc">Update</string>
-    <string name="btnNewAcc">New</string>
+    <string name="btnNewAcc">New Account</string>
     <string name="nameAcc">Name of Account: </string>
     <string name="amountAcc">Amount of Account: </string>
     <string name="amountStartSum">0</string>
@@ -14,7 +14,7 @@
     <string name="btnAddNewAcc">Add</string>
     <string name="btnNewTr">New Transaction</string>
     <string name="typeTransaction">Type of transaction: </string>
-    <string name="categoryTransaction">Category of transaction:</string>
+    <string name="categoryTransaction">Category:</string>
     <string name="btnNewCategoryTransaction">New Category</string>
     <string name="btnAddNewTransaction">Add new transaction</string>
     <string name="InputNewCategory">Input name for new category:</string>

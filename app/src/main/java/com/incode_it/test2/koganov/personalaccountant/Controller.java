@@ -1,19 +1,15 @@
 package com.incode_it.test2.koganov.personalaccountant;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class Controller
 {
@@ -41,6 +37,12 @@ public class Controller
             {
                 getUserFromFirebase();
             }
+            else if(typeFirebaseTransaction.equals("addNewTransactionInFirebase"))
+            {
+                addNewTransactionInFirebase();
+            }
+
+
             return null;
         }
         @Override
@@ -53,11 +55,36 @@ public class Controller
         }
     }
 
+    public void handleNewTransaction(Transaction trans)
+    {
+        Double sumAcc;
+
+        sumAcc = getUser().getAccounts().get(getCurAccount()).getSum();
+
+        if(!trans.getType().equals("Income")&&(sumAcc<trans.getSum()))//-
+        {
+           Toast.makeText(ma, "Sorry, it is impossible. Account has too little money!", Toast.LENGTH_LONG).show();
+        }
+            else//+ or possible -
+            {
+                if(!trans.getType().equals("Income"))
+                {
+                    trans.setSum(-1*trans.getSum());
+                }
+
+                sumAcc += trans.getSum();
+
+                getUser().getAccounts().get(getCurAccount()).setSum(sumAcc);
+
+                getUser().getAccounts().get(getCurAccount()).getTransactions().add(trans);
+
+                newAsync("addNewTransactionInFirebase");
+            }
+    }
+
     public void newAsync(String typeTransaction)
     {
         typeFirebaseTransaction = typeTransaction;
-//        user.setAccounts(new ArrayList<Account>());
-//        user.setCategoriesTrans(new ArrayList<String>());
         new MyAsync().execute();
     }
 
@@ -72,8 +99,6 @@ public class Controller
     public void addNewAccInFirebase()
     {
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
-
-//        myRef.child(keyUser).child("email").child("accounts").setValue(user.getAccounts());
 
         myRef.child(keyUser).child("accounts").setValue(user.getAccounts());
 
@@ -90,13 +115,13 @@ public class Controller
     {
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
 
-//        myRef.child(keyUser).child("accounts").setValue(user.getAccounts());
-
-        /*myRef.child(keyUser).child("accounts").child(Integer.toString(curAccount))
-                .setValue(user.getAccounts().get(curAccount).getTransactions());*/
-
         myRef.child(keyUser).child("accounts").child(Integer.toString(curAccount))
                 .setValue(user.getAccounts().get(curAccount));
+
+        myRef = FirebaseDatabase.getInstance().getReference();
+
+        myRef.child(keyUser).child("accounts").child(Integer.toString(curAccount)).child("sum")
+                .setValue(user.getAccounts().get(curAccount).getSum());
     }
 
     public Boolean isCategory(String isCat)
@@ -122,10 +147,10 @@ public class Controller
                         keyUser = childDataSnapshot.getKey();
                         user=null;
                         user = childDataSnapshot.getValue(User.class);
-                        Log.i("MyTag getUserFromFireDB", user.getEmail());
+                    /*    Log.i("MyTag getUserFromFireDB", user.getEmail());
                         Log.i("MyTag getUserFromFireDB", user.getAccounts().toString());
 
-                        Log.i("MyTag getCategoryTrans", user.getCategoriesTransaction().toString());
+                        Log.i("MyTag getCategoryTrans", user.getCategoriesTransaction().toString());*/
 
                         ma.installFragment(new AccountFragment(), false);//TODO
                         break;

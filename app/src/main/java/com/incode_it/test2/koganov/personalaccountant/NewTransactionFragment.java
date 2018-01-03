@@ -5,12 +5,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -98,11 +101,7 @@ public class NewTransactionFragment extends Fragment {
                                 ,Double.parseDouble(etSum.getText().toString())
                                     ,etRecipient.getText().toString());
 
-                con.getUser().getAccounts().get(con.getCurAccount()).getTransactions().add(trans);//TODO
-
-                con.addNewTransactionInFirebase();
-
-//                Log.i("MyTag", con.getUser().getAccounts().get(con.getCurAccount()).getTransactions().toString());//OK
+                con.handleNewTransaction(trans);
 
                 ((MainActivity)getActivity()).installFragment(new AccountFragment(), false);
 

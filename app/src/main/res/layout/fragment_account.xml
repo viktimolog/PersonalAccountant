@@ -34,12 +34,12 @@
             android:layout_weight="1"
             android:text="@string/btnNewAcc" />
 
-        <Button
-            android:id="@+id/btnUpdAcc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/btnUpdAcc" />
+        <!--<Button-->
+            <!--android:id="@+id/btnUpdAcc"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/btnUpdAcc" />-->
 
         <Button
             android:id="@+id/btnNewTr"

@@ -15,17 +15,18 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
             android:text="@string/typeTransaction"/>
 
         <Spinner
             android:id="@+id/spTypeTransaction"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:entries="@array/typeTransaction"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center"
             android:textAlignment="center" />
     </LinearLayout>
 
@@ -38,20 +39,22 @@
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
             android:text="@string/categoryTransaction" />
+
         <Spinner
             android:id="@+id/spCategoryTransaction"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal|center_vertical"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:textAlignment="center" />
         <Button
             android:id="@+id/btnNewCategoryTransaction"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/btnNewCategoryTransaction" />
 
@@ -83,7 +86,7 @@
             android:id="@+id/etSum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.7"
             android:ems="10"
             android:inputType="numberDecimal"
             android:text="@string/amountStartSum"
@@ -93,7 +96,7 @@
             android:id="@+id/etRecipient"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.3"
             android:ems="10"
             android:gravity="center_horizontal|center_vertical"
             android:hint="Recipient not necessary"
