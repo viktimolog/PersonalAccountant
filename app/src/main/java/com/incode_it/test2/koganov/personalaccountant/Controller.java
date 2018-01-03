@@ -21,6 +21,7 @@ public class Controller
     private String keyUser;
     private User user;
     private String typeFirebaseTransaction;
+    private int curAccount;
 
     public Controller(MainActivity ma) {
         this.ma = ma;
@@ -55,7 +56,8 @@ public class Controller
     public void newAsync(String typeTransaction)
     {
         typeFirebaseTransaction = typeTransaction;
-        user.setAccounts(new ArrayList<Account>());
+//        user.setAccounts(new ArrayList<Account>());
+//        user.setCategoriesTrans(new ArrayList<String>());
         new MyAsync().execute();
     }
 
@@ -77,6 +79,36 @@ public class Controller
 
     }
 
+    public void addNewCategotyTrans()
+    {
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+
+        myRef.child(keyUser).child("categoriesTransaction").setValue(user.getCategoriesTransaction());
+    }
+
+    public void addNewTransactionInFirebase()
+    {
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+
+//        myRef.child(keyUser).child("accounts").setValue(user.getAccounts());
+
+        /*myRef.child(keyUser).child("accounts").child(Integer.toString(curAccount))
+                .setValue(user.getAccounts().get(curAccount).getTransactions());*/
+
+        myRef.child(keyUser).child("accounts").child(Integer.toString(curAccount))
+                .setValue(user.getAccounts().get(curAccount));
+    }
+
+    public Boolean isCategory(String isCat)
+    {
+        for(int i=0; i<user.getCategoriesTransaction().size();i++)
+        {
+            if(user.getCategoriesTransaction().get(i).equals(isCat))
+            return true;
+        }
+        return false;
+    }
+
     public void getUserFromFirebase() {
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
 
@@ -92,7 +124,10 @@ public class Controller
                         user = childDataSnapshot.getValue(User.class);
                         Log.i("MyTag getUserFromFireDB", user.getEmail());
                         Log.i("MyTag getUserFromFireDB", user.getAccounts().toString());
-                        ma.installFragment(new AccountFragment(), false);
+
+                        Log.i("MyTag getCategoryTrans", user.getCategoriesTransaction().toString());
+
+                        ma.installFragment(new AccountFragment(), false);//TODO
                         break;
                     }
                 }
@@ -124,7 +159,15 @@ public class Controller
         this.user = user;
     }
 
-    public String getKeyUser() {
+   public String getKeyUser() {
         return keyUser;
+    }
+
+    public int getCurAccount() {
+        return curAccount;
+    }
+
+    public void setCurAccount(int curAccount) {
+        this.curAccount = curAccount;
     }
 }

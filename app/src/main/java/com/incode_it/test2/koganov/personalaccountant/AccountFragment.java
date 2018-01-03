@@ -7,48 +7,44 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class AccountFragment extends Fragment {
 
-//    private DatabaseReference mDatabase;
-
     private Controller con;
+
+    private ListView lvTransactions;
 
     private Spinner spinnerAccounts;
 
     private ArrayAdapter<Account> adapterAccounts;
 
-    private Button btnNewAcc;
+    private ArrayAdapter<Transaction> adapterTransactions;
 
     public AccountFragment()
     {
         // Required empty public constructor
     }
 
-    class MyAsync extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... unused)
-        {
-            con.getUserFromFirebase();
-            return null;
-        }
-        @Override
-        protected void onProgressUpdate(Void... items) {
+    public void refreshLvTransactions(ArrayList<Transaction> transList)
+    {
+        adapterTransactions=null;
 
-        }
-        @Override
-        protected void onPostExecute(Void unused) {
-            Log.i("MyTag onPostExecute", con.getUser().getEmail());
-            Log.i("MyTag onPostExecute", con.getUser().getAccounts().toString());
-            refreshSpinner();
-        }
+        adapterTransactions = new ArrayAdapter<>(getActivity().getApplicationContext()
+                ,R.layout.spinner_row
+                , transList);
+
+        lvTransactions.setAdapter(adapterTransactions);
     }
 
     public void refreshSpinner()
@@ -65,7 +61,10 @@ public class AccountFragment extends Fragment {
 
         spinnerAccounts.setAdapter(adapterAccounts);
 
-        spinnerAccounts.setSelection(spinnerAccounts.getCount()-1);
+//        spinnerAccounts.setSelection(spinnerAccounts.getCount()-1);
+
+        spinnerAccounts.setSelection(con.getCurAccount()); //view last selected account
+
     }
 
     @Override
@@ -81,8 +80,23 @@ public class AccountFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_account, container, false);
 
         spinnerAccounts = v.findViewById(R.id.spinnerAccounts);
+        lvTransactions = v.findViewById(R.id.lvTransactions);
 
         refreshSpinner();
+
+        spinnerAccounts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View itemSelected, int selectedItemPosition, long selectedId) {
+
+                con.setCurAccount(spinnerAccounts.getSelectedItemPosition());
+
+                refreshLvTransactions(con.getUser().getAccounts().get(con.getCurAccount()).getTransactions());
+
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
 
         v.findViewById(R.id.btnNewAcc).setOnClickListener(new View.OnClickListener()
         {
@@ -92,6 +106,19 @@ public class AccountFragment extends Fragment {
 
             }
         });
+
+        v.findViewById(R.id.btnNewTr).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+
+                con.setCurAccount(spinnerAccounts.getSelectedItemPosition());
+
+                ((MainActivity)getActivity()).installFragment(new NewTransactionFragment(), true);
+
+            }//end onClick
+
+        });//end View.OnClickListener()
 
         return v;
     }

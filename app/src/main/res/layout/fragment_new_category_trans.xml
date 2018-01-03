@@ -1,13 +1,34 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.incode_it.test2.koganov.personalaccountant.NewCategoryTransFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/InputNewCategory"
+        android:gravity="center_horizontal|center_vertical"
+        />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/etNewCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center_horizontal|center_vertical"
+        android:hint="New Category"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnAddNewCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Add" />
+
+
+</LinearLayout>

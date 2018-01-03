@@ -74,10 +74,6 @@ public class FirebaseLoginFragment extends Fragment implements View.OnClickListe
 
     public void signin(final String email , String password)
     {
-        if(mAuth==null)
-        {
-            //TODO
-        }
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(getActivity(),
                 new OnCompleteListener<AuthResult>() {
                     @Override

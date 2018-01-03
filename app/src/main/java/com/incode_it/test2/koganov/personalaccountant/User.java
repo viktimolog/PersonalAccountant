@@ -6,8 +6,13 @@ public class User
 {
     private String email;
     private ArrayList<Account> accounts;
+    private ArrayList<String> categoriesTransaction;//name from Firebase
 
-    public User(){}
+    public User()
+    {
+        accounts = new ArrayList<>();
+        categoriesTransaction = new ArrayList<>();
+    }
 
     public String getEmail() {
         return email;
@@ -23,5 +28,13 @@ public class User
 
     public void setAccounts(ArrayList<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public ArrayList<String> getCategoriesTransaction() {
+        return categoriesTransaction;
+    }
+
+    public void setCategoriesTransaction(ArrayList<String> categoriesTransaction) {
+        this.categoriesTransaction = categoriesTransaction;
     }
 }

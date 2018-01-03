@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class AddAccountFragment extends Fragment {
 
-    private DatabaseReference databaseReference;
+//    private DatabaseReference databaseReference;
 
     private Controller con;
 
