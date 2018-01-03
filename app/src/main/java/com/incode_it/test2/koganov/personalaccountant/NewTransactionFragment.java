@@ -83,7 +83,7 @@ public class NewTransactionFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                ((MainActivity)getActivity()).installFragment(new NewCategoryTransFragment(), true);
+                ((MainActivity)getActivity()).installFragment(new NewCategoryTransFragment(), true);//TODO
 
             }
         });
@@ -93,18 +93,32 @@ public class NewTransactionFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Transaction trans = new Transaction(
-            new SimpleDateFormat("EEE, d MMM yyyy, HH:mm:ss").format(Calendar.getInstance().getTime())
-                ,spTypeTransaction.getSelectedItem().toString()
-                        ,spinnerCategoryTrans.getSelectedItem().toString()
-                            ,description.getText().toString()
+                if(spinnerCategoryTrans.getSelectedItem()==null)
+                {
+                    Toast.makeText(getActivity(), "Sorry, you do not have any categories!", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    if(etSum.getText().length()== 0 || Double.parseDouble(etSum.getText().toString())==0)
+                    {
+                        Toast.makeText(getActivity(), "Sum = 0. It does not make sense, input another sum!", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Log.i("MyTag etSumgetText() = ",etSum.getText().toString());
+                        Transaction trans = new Transaction(
+                                new SimpleDateFormat("EEE, d MMM yyyy, HH:mm:ss").format(Calendar.getInstance().getTime())
+                                ,spTypeTransaction.getSelectedItem().toString()
+                                ,spinnerCategoryTrans.getSelectedItem().toString()
+                                ,description.getText().toString()
                                 ,Double.parseDouble(etSum.getText().toString())
-                                    ,etRecipient.getText().toString());
+                                ,etRecipient.getText().toString());
 
-                con.handleNewTransaction(trans);
+                        con.handleNewTransaction(trans);
 
-                ((MainActivity)getActivity()).installFragment(new AccountFragment(), false);
-
+                        ((MainActivity)getActivity()).installFragment(new AccountFragment(), false);
+                    }
+                }
             }
         });
 

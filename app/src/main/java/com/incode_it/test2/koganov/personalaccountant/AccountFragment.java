@@ -114,7 +114,16 @@ public class AccountFragment extends Fragment {
 
                 con.setCurAccount(spinnerAccounts.getSelectedItemPosition());
 
-                ((MainActivity)getActivity()).installFragment(new NewTransactionFragment(), true);
+                Log.d("MyTag",Integer.toString(con.getCurAccount()));
+
+                if(con.getCurAccount()==-1)
+                {
+                    Toast.makeText(getActivity(), "Sorry, you do not have any acoounts!", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    ((MainActivity)getActivity()).installFragment(new NewTransactionFragment(), true);
+                }
 
             }//end onClick
 
