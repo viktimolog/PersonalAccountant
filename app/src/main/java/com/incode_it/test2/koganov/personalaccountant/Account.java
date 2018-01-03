@@ -1,6 +1,8 @@
 package com.incode_it.test2.koganov.personalaccountant;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Account
 {
@@ -13,12 +15,12 @@ public class Account
     public Account()
     {
         transactions = new ArrayList<>();
-        price = 1;//TODO
+//        price = 28.1;//TODO
     }
 
     public Account(String name, double sum, String currency) {
         transactions = new ArrayList<>();
-        this.price = 1;//TODO
+        this.price = 28.1;//TODO
         this.name = name;
         this.sum = sum;
         this.currency = currency;
@@ -64,16 +66,47 @@ public class Account
         this.currency = currency;
     }
 
-    public String toString()//TODO name + sum + sum/kurs
+    public String getUSDfromUAH(Double sum)
+    {
+        Locale locale = new Locale("en");
+        Locale.setDefault(locale);
+        String pattern = "##0.00";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        String format = decimalFormat.format(sum/price);
+        return format;
+    }
+
+    public String getUAHfromUSD(Double sum)
+    {
+        Locale locale = new Locale("en");
+        Locale.setDefault(locale);
+        String pattern = "##0.00";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        String format = decimalFormat.format(sum*price);
+        return format;
+    }
+
+    public String getFormatSum(Double sum)
+    {
+        Locale locale = new Locale("en");
+        Locale.setDefault(locale);
+        String pattern = "##0.00";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        String format = decimalFormat.format(sum);
+        return format;
+    }
+
+    public String toString()
     {
         String str="";
-        if(!currency.equals("UAH"))
+        if(!currency.equals("UAH"))//not UAH
         {
-            str = name + "("+currency+")"+":"+"\n" +  Double.toString(sum) + " " + currency + " / " + Double.toString(sum/price) + " UAH";
+//            str = name + "("+currency+")"+":"+"\n" +  Double.toString(sum) + " " + currency + " / " + Double.toString(sum*price) + " UAH";
+            str = name + "("+currency+")"+":"+"\n" +  getFormatSum(sum) + " " + currency + " / " + getUAHfromUSD(sum) + " UAH";
         }
         else
         {
-            str = name + "("+currency+")"+":"+"\n" +  Double.toString(sum) + " " + currency;
+            str = name + "("+currency+")"+":"+"\n" +  getFormatSum(sum) + " " + currency;
         }
 
         return str;
