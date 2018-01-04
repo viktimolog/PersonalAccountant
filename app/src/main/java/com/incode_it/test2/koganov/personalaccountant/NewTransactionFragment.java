@@ -38,11 +38,42 @@ public class NewTransactionFragment extends Fragment {
 
     private ArrayAdapter<Account> adapterAccounts;
 
+    private ArrayAdapter<String> adapterSpTypeTransaction;
+
+    private String[] masTypeTrans;
+
 
     public NewTransactionFragment() {
     }
 
-    public void refreshSpinnerAccounts()
+    public void refreshSpTypeTransaction()
+    {
+
+        adapterSpTypeTransaction=null;
+
+        adapterSpTypeTransaction = new ArrayAdapter<String>(getActivity().getApplicationContext()
+                ,R.layout.spinner_row
+                , masTypeTrans)
+        {
+
+            // Disable click item < month current
+            @Override
+            public boolean isEnabled(int position) {
+
+                if (con.getUser().getAccounts().size() < 2 && position==2)
+                {
+                    Toast.makeText(getActivity(), "Sorry, transfer is impossible, you have only one account!", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                return true;
+            }
+        };
+
+        spTypeTransaction.setAdapter(adapterSpTypeTransaction);
+
+    }
+
+    public void refreshSpinnerAccounts1()
     {
 
         adapterAccounts=null;
@@ -53,7 +84,53 @@ public class NewTransactionFragment extends Fragment {
 
         spToAcc.setAdapter(adapterAccounts);
 
-//        spToAcc.setSelection(con.getCurAccount()); //view last selected account
+    }
+
+    public void refreshSpinnerAccounts()
+    {
+        adapterAccounts=null;
+
+        adapterAccounts = new ArrayAdapter<Account>(getActivity().getApplicationContext()
+                ,R.layout.spinner_row
+                , con.getUser().getAccounts())
+        {
+
+            // Disable click item < month current
+            @Override
+            public boolean isEnabled(int position) {
+                // TODO Auto-generated method stub
+                if (con.getCurAccount()== position) {
+                    return false;
+                }
+                return true;
+            }
+            // Change color item
+       /*     @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View mView = super.getDropDownView(position, convertView, parent);
+                TextView mTextView = (TextView) mView;
+                if (year <= max_year && position < max_month - 1) {
+                    mTextView.setTextColor(Color.GRAY);
+                } else {
+                    mTextView.setTextColor(Color.BLACK);
+                }
+                return mView;
+            }*/
+        };
+
+    /*    adapterMonth
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spn2.setAdapter(adapterMonth);*/
+
+
+        spToAcc.setAdapter(adapterAccounts);
+
+        //TODO if
+
+        spToAcc.setSelection(con.getCurAccount());
+
     }
 
     public void refreshSpinnerCategories()
@@ -80,6 +157,8 @@ public class NewTransactionFragment extends Fragment {
 
 //        getActivity().setTitle("Current Account");
 
+        masTypeTrans = getResources().getStringArray(R.array.typeTransaction);
+
         View v = inflater.inflate(R.layout.fragment_new_transaction, container, false);
 
         con = ((MainActivity)getActivity()).getCon();
@@ -95,6 +174,8 @@ public class NewTransactionFragment extends Fragment {
         tvCurAccount.setText(con.getUser().getAccounts().get(con.getCurAccount()).toString());
 
         refreshSpinnerCategories();//categories
+
+        refreshSpTypeTransaction(); //type Transactions
 
 
         spTypeTransaction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -115,6 +196,7 @@ public class NewTransactionFragment extends Fragment {
                     etRecipient.setEnabled(true);
                     spToAcc.setVisibility(View.INVISIBLE);
                 }
+
 
 //                con.setCurAccount(spToAcc.getSelectedItemPosition());
 
