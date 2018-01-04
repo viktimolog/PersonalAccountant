@@ -1,16 +1,15 @@
 package com.incode_it.test2.koganov.personalaccountant;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +21,8 @@ public class NewTransactionFragment extends Fragment {
 
     private Controller con;
 
+    private TextView tvCurAccount;
+
     private EditText etSum;
     private EditText etRecipient;
 
@@ -31,18 +32,32 @@ public class NewTransactionFragment extends Fragment {
 
     private Spinner spTypeTransaction;
 
+    private Spinner spToAcc;
+
     private ArrayAdapter<String> adapterCategoryTrans;
+
+    private ArrayAdapter<Account> adapterAccounts;
 
 
     public NewTransactionFragment() {
     }
 
-    public void refreshSpinner()
+    public void refreshSpinnerAccounts()
     {
-//          con.getUserFromFirebase();
 
-//        con.newAsync("getUserFromFirebase");
+        adapterAccounts=null;
 
+        adapterAccounts = new ArrayAdapter<>(getActivity().getApplicationContext()
+                ,R.layout.spinner_row
+                , con.getUser().getAccounts());
+
+        spToAcc.setAdapter(adapterAccounts);
+
+//        spToAcc.setSelection(con.getCurAccount()); //view last selected account
+    }
+
+    public void refreshSpinnerCategories()
+    {
         adapterCategoryTrans=null;
 
         adapterCategoryTrans = new ArrayAdapter<>(getActivity().getApplicationContext()
@@ -63,6 +78,8 @@ public class NewTransactionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+//        getActivity().setTitle("Current Account");
+
         View v = inflater.inflate(R.layout.fragment_new_transaction, container, false);
 
         con = ((MainActivity)getActivity()).getCon();
@@ -72,10 +89,43 @@ public class NewTransactionFragment extends Fragment {
         description = v.findViewById(R.id.etDescription);
         etSum = v.findViewById(R.id.etSum);
         etRecipient = v.findViewById(R.id.etRecipient);
+        tvCurAccount = v.findViewById(R.id.tvCurAcc);
+        spToAcc = v.findViewById(R.id.spToAcc);
 
-        refreshSpinner();
+        tvCurAccount.setText(con.getUser().getAccounts().get(con.getCurAccount()).toString());
 
-        Log.i("MyTag",con.getCurAccount()+"");
+        refreshSpinnerCategories();//categories
+
+
+        spTypeTransaction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent,
+                                       View itemSelected, int selectedItemPosition, long selectedId)
+            {
+                if(spTypeTransaction.getSelectedItem().toString().equals("Transfer"))
+                {
+                    etRecipient.setText("Select recipient from list "+(char)11014);
+                    etRecipient.setEnabled(false);
+                    spToAcc.setVisibility(View.VISIBLE);
+                    refreshSpinnerAccounts();
+                }
+                else
+                {
+                    etRecipient.setText("");
+                    etRecipient.setHint("Recipient not necessary");
+                    etRecipient.setEnabled(true);
+                    spToAcc.setVisibility(View.INVISIBLE);
+                }
+
+//                con.setCurAccount(spToAcc.getSelectedItemPosition());
+
+
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+
 
 
         v.findViewById(R.id.btnNewCategoryTransaction).setOnClickListener(new View.OnClickListener() {

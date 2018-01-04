@@ -42,7 +42,7 @@ public class Transaction
 //        str += dateTime + "\n" + type + "; " + category +";" + description + "; " + Double.toString(sum)+"; "+recipient;
 
         str += dateTime + "\n" + "Type: " + type + "\n" + "Category: " + category +"\n" + "Description: " + description + "\n"
-                + "Summa: " + Double.toString(sum)+"\n"+"Recipient: " + recipient;
+                + "Sum: " + Double.toString(sum)+"\n"+"Recipient: " + recipient;
 
         return str;
     }

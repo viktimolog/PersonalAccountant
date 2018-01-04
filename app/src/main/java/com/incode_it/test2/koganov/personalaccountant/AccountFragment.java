@@ -49,9 +49,6 @@ public class AccountFragment extends Fragment {
 
     public void refreshSpinner()
     {
-//          con.getUserFromFirebase();
-
-//        con.newAsync("getUserFromFirebase");
 
         adapterAccounts=null;
 
@@ -61,10 +58,7 @@ public class AccountFragment extends Fragment {
 
         spinnerAccounts.setAdapter(adapterAccounts);
 
-//        spinnerAccounts.setSelection(spinnerAccounts.getCount()-1);
-
         spinnerAccounts.setSelection(con.getCurAccount()); //view last selected account
-
     }
 
     @Override
