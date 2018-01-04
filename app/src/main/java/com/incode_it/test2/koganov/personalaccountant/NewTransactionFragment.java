@@ -1,5 +1,6 @@
 package com.incode_it.test2.koganov.personalaccountant;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -67,13 +68,28 @@ public class NewTransactionFragment extends Fragment {
                 }
                 return true;
             }
+            // Change color item
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                // TODO Auto-generated method stub
+                View mView = super.getDropDownView(position, convertView, parent);
+                TextView mTextView = (TextView) mView;
+                if (con.getUser().getAccounts().size() < 2 && position==2)
+                {
+                    mTextView.setTextColor(Color.GRAY);
+                } else {
+                    mTextView.setTextColor(Color.BLACK);
+                }
+                return mView;
+            }
         };
 
         spTypeTransaction.setAdapter(adapterSpTypeTransaction);
 
     }
 
-    public void refreshSpinnerAccounts1()
+    public void refreshSpinnerAccounts1()//don't use
     {
 
         adapterAccounts=null;
@@ -95,42 +111,41 @@ public class NewTransactionFragment extends Fragment {
                 , con.getUser().getAccounts())
         {
 
-            // Disable click item < month current
             @Override
             public boolean isEnabled(int position) {
-                // TODO Auto-generated method stub
-                if (con.getCurAccount()== position) {
+                if (con.getCurAccount()== position)
+                {
+                    Toast.makeText(getActivity(), "Sorry, this account is the sender!", Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 return true;
             }
-            // Change color item
-       /*     @Override
+
+            @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
-                // TODO Auto-generated method stub
                 View mView = super.getDropDownView(position, convertView, parent);
                 TextView mTextView = (TextView) mView;
-                if (year <= max_year && position < max_month - 1) {
+                if (con.getCurAccount()== position)
+                {
                     mTextView.setTextColor(Color.GRAY);
                 } else {
                     mTextView.setTextColor(Color.BLACK);
                 }
                 return mView;
-            }*/
+            }
         };
-
-    /*    adapterMonth
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spn2.setAdapter(adapterMonth);*/
-
 
         spToAcc.setAdapter(adapterAccounts);
 
-        //TODO if
-
-        spToAcc.setSelection(con.getCurAccount());
-
+        if(con.getCurAccount()==con.getUser().getAccounts().size()-1)//last account
+        {
+            spToAcc.setSelection(con.getUser().getAccounts().size()-2);
+        }
+        else
+        {
+            spToAcc.setSelection(con.getCurAccount()+1);
+        }
     }
 
     public void refreshSpinnerCategories()
@@ -197,18 +212,10 @@ public class NewTransactionFragment extends Fragment {
                     spToAcc.setVisibility(View.INVISIBLE);
                 }
 
-
-//                con.setCurAccount(spToAcc.getSelectedItemPosition());
-
-
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
-
-
 
         v.findViewById(R.id.btnNewCategoryTransaction).setOnClickListener(new View.OnClickListener() {
 
@@ -237,14 +244,23 @@ public class NewTransactionFragment extends Fragment {
                     }
                     else
                     {
-                        Log.i("MyTag etSumgetText() = ",etSum.getText().toString());
+                        String recipient;
+                        if(spTypeTransaction.getSelectedItem().toString().equals("Transfer"))
+                        {
+                            recipient = spToAcc.getSelectedItem().toString();
+                            con.setRecip(spToAcc.getSelectedItemPosition());
+                        }
+                        else
+                        {
+                            recipient = etRecipient.getText().toString();
+                        }
                         Transaction trans = new Transaction(
                                 new SimpleDateFormat("EEE, d MMM yyyy, HH:mm:ss").format(Calendar.getInstance().getTime())
                                 ,spTypeTransaction.getSelectedItem().toString()
                                 ,spinnerCategoryTrans.getSelectedItem().toString()
                                 ,description.getText().toString()
                                 ,Double.parseDouble(etSum.getText().toString())
-                                ,etRecipient.getText().toString());
+                                ,recipient);
 
                         con.handleNewTransaction(trans);
 

@@ -9,7 +9,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Controller
 {
@@ -18,6 +20,7 @@ public class Controller
     private User user;
     private String typeFirebaseTransaction;
     private int curAccount;
+    private int recip;
 
     public Controller(MainActivity ma) {
         this.ma = ma;
@@ -74,6 +77,25 @@ public class Controller
 
                 sumAcc += trans.getSum();
 
+//                getUser().getAccounts().get(getCurAccount()).setSum(sumAcc);
+//
+//                getUser().getAccounts().get(getCurAccount()).getTransactions().add(trans);
+
+                if(trans.getType().equals("Transfer"))
+                {
+                    Transaction inTrans = new Transaction(
+                            new SimpleDateFormat("EEE, d MMM yyyy, HH:mm:ss").format(Calendar.getInstance().getTime())
+                            ,"Income"
+                            ,trans.getCategory()
+                            ,trans.getDescription()
+                            ,-1*trans.getSum()
+                            ,getUser().getAccounts().get(getCurAccount()).toString());
+
+                    user.getAccounts().get(recip).setSum(user.getAccounts().get(recip).getSum()+inTrans.getSum());
+
+                    getUser().getAccounts().get(getRecip()).getTransactions().add(inTrans);
+                }
+
                 getUser().getAccounts().get(getCurAccount()).setSum(sumAcc);
 
                 getUser().getAccounts().get(getCurAccount()).getTransactions().add(trans);
@@ -115,13 +137,17 @@ public class Controller
     {
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
 
+        myRef.child(keyUser).child("accounts").setValue(user.getAccounts());
+
+       /* DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+
         myRef.child(keyUser).child("accounts").child(Integer.toString(curAccount))
                 .setValue(user.getAccounts().get(curAccount));
 
         myRef = FirebaseDatabase.getInstance().getReference();
 
         myRef.child(keyUser).child("accounts").child(Integer.toString(curAccount)).child("sum")
-                .setValue(user.getAccounts().get(curAccount).getSum());
+                .setValue(user.getAccounts().get(curAccount).getSum());*/
     }
 
     public Boolean isCategory(String isCat)
@@ -194,5 +220,13 @@ public class Controller
 
     public void setCurAccount(int curAccount) {
         this.curAccount = curAccount;
+    }
+
+    public int getRecip() {
+        return recip;
+    }
+
+    public void setRecip(int recip) {
+        this.recip = recip;
     }
 }
