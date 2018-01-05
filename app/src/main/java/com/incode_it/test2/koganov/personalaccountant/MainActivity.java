@@ -12,6 +12,7 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.UserNotAuthenticatedException;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -52,6 +53,15 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
 
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+	    GetExchange ge = new GetExchange("http://bank-ua.com/export/exchange_rate_cash.json");
+
+	    ge.newAsync();
+
+
+
+
 
         mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 //        Button purchaseButton = (Button) findViewById(R.id.purchase_button);

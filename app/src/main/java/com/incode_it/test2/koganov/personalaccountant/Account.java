@@ -101,7 +101,6 @@ public class Account
         String str="";
         if(!currency.equals("UAH"))//not UAH
         {
-//            str = name + "("+currency+")"+":"+"\n" +  Double.toString(sum) + " " + currency + " / " + Double.toString(sum*price) + " UAH";
             str = name + "("+currency+")"+":"+"\n" +  getFormatSum(sum) + " " + currency + " / " + getUAHfromUSD(sum) + " UAH";
         }
         else
