@@ -39,17 +39,20 @@ public class NewCategoryTransFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if(!con.isCategory(etNewCategory.getText().toString()))
+                if(etNewCategory.getText().length()== 0)
                 {
-                    con.getUser().getCategoriesTransaction().add(etNewCategory.getText().toString());
-                    con.addNewCategotyTrans();
-                    ((MainActivity)getActivity()).installFragment(new NewTransactionFragment(), false);
+                    Toast.makeText(getActivity(), "Input name for new category!", Toast.LENGTH_LONG).show();
                 }
-                else
-                {
-                    Toast.makeText(getActivity(),"Sorry, this category has already created!",Toast.LENGTH_LONG).show();
-                }
+                else {
 
+                    if (!con.isCategory(etNewCategory.getText().toString())) {
+                        con.getUser().getCategoriesTransaction().add(etNewCategory.getText().toString());
+                        con.addNewCategotyTrans();
+                        ((MainActivity) getActivity()).installFragment(new NewTransactionFragment(), false);
+                    } else {
+                        Toast.makeText(getActivity(), "Sorry, this category has already created!", Toast.LENGTH_LONG).show();
+                    }
+                }
 
             }
         });

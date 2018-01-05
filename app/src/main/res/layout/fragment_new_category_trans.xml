@@ -5,13 +5,13 @@
     android:orientation="vertical"
     tools:context="com.incode_it.test2.koganov.personalaccountant.NewCategoryTransFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/InputNewCategory"
-        android:gravity="center_horizontal|center_vertical"
-        />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="@string/InputNewCategory"-->
+        <!--android:gravity="center_horizontal|center_vertical"-->
+        <!--/>-->
 
     <EditText
         android:id="@+id/etNewCategory"
@@ -20,7 +20,7 @@
         android:layout_weight="1"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
-        android:hint="New Category"
+        android:hint="Input name for new category"
         android:inputType="textPersonName" />
 
     <Button
@@ -28,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="Add" />
 
 

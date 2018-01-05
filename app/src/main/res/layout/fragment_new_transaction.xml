@@ -90,7 +90,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:text="@string/amountStartSum"
+            android:hint="@string/amountStartSum"
             android:gravity="center_horizontal|center_vertical"/>
 
         <LinearLayout

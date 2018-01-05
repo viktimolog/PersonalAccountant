@@ -44,7 +44,10 @@ public class Controller
             {
                 addNewTransactionInFirebase();
             }
-
+            else if(typeFirebaseTransaction.equals("addNewAccInFirebase"))
+            {
+                addNewAccInFirebase();
+            }
 
             return null;
         }

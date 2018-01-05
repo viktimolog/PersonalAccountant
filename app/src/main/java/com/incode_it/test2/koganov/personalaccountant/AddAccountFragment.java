@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,19 +55,30 @@ public class AddAccountFragment extends Fragment {
         {
             @Override
             public void onClick(View view) {
-                if(etName.getText()==null)
+
+                if(etAmount.getText().length()== 0)
                 {
-                    etName.setText("");
+                    etAmount.setText("0");
                 }
-                Account acc = new Account(etName.getText().toString(),
-                        Double.parseDouble(etAmount.getText().toString())
-                        ,spinnerCurrency.getSelectedItem().toString());
 
-                con.getUser().getAccounts().add(acc);
+                if(etName.getText().length()== 0)
+                {
+                    Toast.makeText(getActivity(), "Input Name of Account!", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Account acc = new Account(etName.getText().toString(),
+                            Double.parseDouble(etAmount.getText().toString())
+                            , spinnerCurrency.getSelectedItem().toString());
 
-                con.addNewAccInFirebase();
+                    con.getUser().getAccounts().add(acc);
 
-                ((MainActivity)getActivity()).installFragment(new AccountFragment(), false);
+                    con.setCurAccount(con.getUser().getAccounts().size()-1);
+
+                    con.newAsync("addNewAccInFirebase");
+
+                    ((MainActivity) getActivity()).installFragment(new AccountFragment(), false);
+                }
 
             }//end onClick
 
