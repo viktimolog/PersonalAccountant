@@ -55,14 +55,14 @@ public class MainActivity extends Activity
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-//        Button purchaseButton = (Button) findViewById(R.id.purchase_button);
         if (!mKeyguardManager.isKeyguardSecure()) {
             // Show a message that the user hasn't set up a lock screen.
             Toast.makeText(this,
                     "Secure lock screen hasn't set up.\n"
                             + "Go to 'Settings -> Security -> Screenlock' to set up a lock screen",
                     Toast.LENGTH_LONG).show();
-//            purchaseButton.setEnabled(false);
+            con = new Controller(this);
+            installFragment(new FirebaseLoginFragment(), false);
             return;
         }
         createKey();
