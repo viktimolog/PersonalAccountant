@@ -15,12 +15,11 @@ public class Account
     public Account()
     {
         transactions = new ArrayList<>();
-//        price = 28.1;//TODO
     }
 
     public Account(String name, double sum, String currency) {
         transactions = new ArrayList<>();
-        this.price = 28.1;//TODO
+        this.price = 1;//TODO
         this.name = name;
         this.sum = sum;
         this.currency = currency;

@@ -72,7 +72,6 @@ public class NewTransactionFragment extends Fragment {
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
-                // TODO Auto-generated method stub
                 View mView = super.getDropDownView(position, convertView, parent);
                 TextView mTextView = (TextView) mView;
                 if (con.getUser().getAccounts().size() < 2 && position==2)
@@ -222,7 +221,7 @@ public class NewTransactionFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                ((MainActivity)getActivity()).installFragment(new NewCategoryTransFragment(), true);//TODO
+                ((MainActivity)getActivity()).installFragment(new NewCategoryTransFragment(), true);
 
             }
         });

@@ -54,15 +54,6 @@ public class MainActivity extends Activity
 
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
-	    GetExchange ge = new GetExchange("http://bank-ua.com/export/exchange_rate_cash.json");
-
-	    ge.newAsync();
-
-
-
-
-
         mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 //        Button purchaseButton = (Button) findViewById(R.id.purchase_button);
         if (!mKeyguardManager.isKeyguardSecure()) {

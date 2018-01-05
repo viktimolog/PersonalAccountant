@@ -71,6 +71,8 @@ public class AccountFragment extends Fragment {
 
         con = ((MainActivity)getActivity()).getCon();
 
+        con.newAsync("setPrice");
+
         View v = inflater.inflate(R.layout.fragment_account, container, false);
 
         spinnerAccounts = v.findViewById(R.id.spinnerAccounts);

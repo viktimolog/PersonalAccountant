@@ -82,7 +82,7 @@ public class FirebaseLoginFragment extends Fragment implements View.OnClickListe
                         {
                             Toast.makeText(getActivity(), "Authorization successful ", Toast.LENGTH_SHORT).show();
                             con.getUser().setEmail(email);
-                            con.newAsync("getUserFromFirebase");//OK
+                            con.newAsync("getUserFromFirebase");
                         }
                         else
                             Toast.makeText(getActivity(), "Authorization failed", Toast.LENGTH_SHORT).show();
