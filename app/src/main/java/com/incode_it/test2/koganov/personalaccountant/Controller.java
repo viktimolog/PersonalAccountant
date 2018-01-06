@@ -295,7 +295,6 @@ public class Controller
                 if(user.getAccounts().get(i).getCurrency().equals("USD"))
                 {
                     user.getAccounts().get(i).setPrice(priceUAHUSD);
-                    Log.d("MyTag", user.getAccounts().get(i).getPrice()+"");//todo
                 }
             }
         }
@@ -305,7 +304,7 @@ public class Controller
     {
         Double sumAcc;
 
-        sumAcc = getUser().getAccounts().get(getCurAccount()).getSum();
+        sumAcc = user.getAccounts().get(curAccount).getSum();
 
         if(!trans.getType().equals("Income")&&(sumAcc<trans.getSum()))//-
         {
@@ -320,9 +319,10 @@ public class Controller
 
                 sumAcc += trans.getSum();
 
-//                getUser().getAccounts().get(getCurAccount()).setSum(sumAcc);
-//
-//                getUser().getAccounts().get(getCurAccount()).getTransactions().add(trans);
+//                user.getAccounts().get(curAccount).setSum(sumAcc); //sum in history transaction recipient
+// will install after replace account sender
+
+//                user.getAccounts().get(curAccount).getTransactions().add(trans);
 
                 if(trans.getType().equals("Transfer"))
                 {
@@ -332,16 +332,27 @@ public class Controller
                             ,trans.getCategory()
                             ,trans.getDescription()
                             ,-1*trans.getSum()
-                            ,getUser().getAccounts().get(getCurAccount()).toString());
+                            ,user.getAccounts().get(curAccount).toString());
+
+                    if(user.getAccounts().get(curAccount).getCurrency().equals("UAH")
+                            &&user.getAccounts().get(recip).getCurrency().equals("USD"))
+                    {
+                        inTrans.setSum(inTrans.getSum()/priceUAHUSD);
+                    }
+                    else if(user.getAccounts().get(curAccount).getCurrency().equals("USD")
+                            &&user.getAccounts().get(recip).getCurrency().equals("UAH"))
+                    {
+                        inTrans.setSum(inTrans.getSum()*priceUAHUSD);
+                    }
 
                     user.getAccounts().get(recip).setSum(user.getAccounts().get(recip).getSum()+inTrans.getSum());
 
-                    getUser().getAccounts().get(getRecip()).getTransactions().add(inTrans);
+                    user.getAccounts().get(getRecip()).getTransactions().add(inTrans);
                 }
 
-                getUser().getAccounts().get(getCurAccount()).setSum(sumAcc);
+                user.getAccounts().get(getCurAccount()).setSum(sumAcc);
 
-                getUser().getAccounts().get(getCurAccount()).getTransactions().add(trans);
+                user.getAccounts().get(getCurAccount()).getTransactions().add(trans);
 
                 newAsync("addNewTransactionInFirebase");
             }
@@ -417,7 +428,7 @@ public class Controller
                         user=null;
                         user = childDataSnapshot.getValue(User.class);
 
-                        ma.installFragment(new AccountFragment(), false);//TODO
+                        ma.installFragment(new AccountFragment(), false);
                         break;
                     }
                 }
