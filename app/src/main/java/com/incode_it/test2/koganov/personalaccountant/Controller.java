@@ -36,6 +36,7 @@ public class Controller
     private User user;
     private String typeFirebaseTransaction;
     private int curAccount;
+    private int curTypeTrans;
     private int recip;
 
     public Controller(MainActivity ma) {
@@ -44,6 +45,7 @@ public class Controller
         this.ma = ma;
         user = new User();
         user.setAccounts(new ArrayList<Account>());
+        curTypeTrans=0;
     }
 
     class Bank
@@ -473,5 +475,13 @@ public class Controller
 
     public void setPriceUAHUSD(Double priceUAHUSD) {
         this.priceUAHUSD = priceUAHUSD;
+    }
+
+    public int getCurTypeTrans() {
+        return curTypeTrans;
+    }
+
+    public void setCurTypeTrans(int curTypeTrans) {
+        this.curTypeTrans = curTypeTrans;
     }
 }

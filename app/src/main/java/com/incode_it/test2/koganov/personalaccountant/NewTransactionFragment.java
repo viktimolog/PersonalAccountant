@@ -86,18 +86,8 @@ public class NewTransactionFragment extends Fragment {
 
         spTypeTransaction.setAdapter(adapterSpTypeTransaction);
 
-    }
+        spTypeTransaction.setSelection(con.getCurTypeTrans());
 
-    public void refreshSpinnerAccounts1()//don't use
-    {
-
-        adapterAccounts=null;
-
-        adapterAccounts = new ArrayAdapter<>(getActivity().getApplicationContext()
-                ,R.layout.spinner_row
-                , con.getUser().getAccounts());
-
-        spToAcc.setAdapter(adapterAccounts);
 
     }
 
@@ -220,6 +210,8 @@ public class NewTransactionFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
+
+                con.setCurTypeTrans(spTypeTransaction.getSelectedItemPosition());
 
                 ((MainActivity)getActivity()).installFragment(new NewCategoryTransFragment(), true);
 
