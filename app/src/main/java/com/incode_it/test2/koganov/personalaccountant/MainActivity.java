@@ -58,7 +58,7 @@ public class MainActivity extends Activity
         if (!mKeyguardManager.isKeyguardSecure()) {
             // Show a message that the user hasn't set up a lock screen.
             Toast.makeText(this,
-                    "Secure lock screen hasn't set up.\n"
+                    "Attention! Secure lock screen hasn't set up.\n"
                             + "Go to 'Settings -> Security -> Screenlock' to set up a lock screen",
                     Toast.LENGTH_LONG).show();
             con = new Controller(this);

@@ -414,6 +414,17 @@ public class Controller
         return false;
     }
 
+    public Boolean isAccount(String isAcc, String currency)
+    {
+        for(int i=0; i<user.getAccounts().size();i++)
+        {
+            if(user.getAccounts().get(i).getName().equals(isAcc)
+                    &&user.getAccounts().get(i).getCurrency().equals(currency))
+                return true;
+        }
+        return false;
+    }
+
     public void getUserFromFirebase() {
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
 

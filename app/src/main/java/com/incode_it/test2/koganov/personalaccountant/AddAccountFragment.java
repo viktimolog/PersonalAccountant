@@ -67,17 +67,24 @@ public class AddAccountFragment extends Fragment {
                 }
                 else
                 {
-                    Account acc = new Account(etName.getText().toString(),
-                            Double.parseDouble(etAmount.getText().toString())
-                            , spinnerCurrency.getSelectedItem().toString());
+                    if(con.isAccount(etName.getText().toString(), spinnerCurrency.getSelectedItem().toString()))
+                    {
+                        Toast.makeText(getActivity(), "Sorry, this Account has already created!", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Account acc = new Account(etName.getText().toString(),
+                                Double.parseDouble(etAmount.getText().toString())
+                                , spinnerCurrency.getSelectedItem().toString());
 
-                    con.getUser().getAccounts().add(acc);
+                        con.getUser().getAccounts().add(acc);
 
-                    con.setCurAccount(con.getUser().getAccounts().size()-1);
+                        con.setCurAccount(con.getUser().getAccounts().size()-1);
 
-                    con.newAsync("addNewAccInFirebase");
+                        con.newAsync("addNewAccInFirebase");
 
-                    ((MainActivity) getActivity()).installFragment(new AccountFragment(), false);
+                        ((MainActivity) getActivity()).installFragment(new AccountFragment(), false);
+                    }
                 }
 
             }//end onClick
