@@ -56,7 +56,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:hint="0"
+            android:hint="@string/StartAmountNewAccount"
             android:gravity="center_horizontal|center_vertical"/>
 
         />
