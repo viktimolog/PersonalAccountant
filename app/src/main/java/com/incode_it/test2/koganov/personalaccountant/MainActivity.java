@@ -181,7 +181,7 @@ public class MainActivity extends Activity
 
             if(BackStack)
             {
-                ft.addToBackStack(null);
+                ft.addToBackStack(null);//add fragment to backstack
             }
 
             ft.commit();

@@ -48,7 +48,9 @@ public class NewCategoryTransFragment extends Fragment {
                     if (!con.isCategory(etNewCategory.getText().toString())) {
                         con.getUser().getCategoriesTransaction().add(etNewCategory.getText().toString());
                         con.addNewCategotyTrans();
-                        ((MainActivity) getActivity()).installFragment(new NewTransactionFragment(), false);
+
+//                        getFragmentManager().popBackStack();
+                        ((MainActivity) getActivity()).installFragment(new NewTransactionFragment(), false);//todo
                     }
                     else {
                         Toast.makeText(getActivity(), "Sorry, this category has already created!", Toast.LENGTH_LONG).show();
@@ -60,6 +62,4 @@ public class NewCategoryTransFragment extends Fragment {
 
         return v;
     }
-
-
 }

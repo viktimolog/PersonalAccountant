@@ -19,7 +19,7 @@ public class Account
 
     public Account(String name, double sum, String currency) {
         transactions = new ArrayList<>();
-        this.price = 1;//TODO
+        this.price = 1;
         this.name = name;
         this.sum = sum;
         this.currency = currency;

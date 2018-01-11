@@ -2,9 +2,7 @@ package com.incode_it.test2.koganov.personalaccountant;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

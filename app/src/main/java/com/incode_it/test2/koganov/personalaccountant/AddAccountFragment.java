@@ -69,7 +69,7 @@ public class AddAccountFragment extends Fragment {
                 {
                     if(con.isAccount(etName.getText().toString(), spinnerCurrency.getSelectedItem().toString()))
                     {
-                        Toast.makeText(getActivity(), "Sorry, this Account has already created!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Sorry, the account with this name and currency has already created!", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
@@ -82,6 +82,8 @@ public class AddAccountFragment extends Fragment {
                         con.setCurAccount(con.getUser().getAccounts().size()-1);
 
                         con.newAsync("addNewAccInFirebase");
+
+                        getFragmentManager().popBackStack();//todo
 
                         ((MainActivity) getActivity()).installFragment(new AccountFragment(), false);
                     }

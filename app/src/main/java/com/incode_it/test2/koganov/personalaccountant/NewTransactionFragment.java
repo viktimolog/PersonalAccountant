@@ -213,7 +213,7 @@ public class NewTransactionFragment extends Fragment {
 
                 con.setCurTypeTrans(spTypeTransaction.getSelectedItemPosition());
 
-                ((MainActivity)getActivity()).installFragment(new NewCategoryTransFragment(), true);
+                ((MainActivity)getActivity()).installFragment(new NewCategoryTransFragment(), false);//todo
 
             }
         });
@@ -254,6 +254,13 @@ public class NewTransactionFragment extends Fragment {
                                 ,recipient);
 
                         con.handleNewTransaction(trans);
+
+
+                        con.removeAllFragments();//todo OK if with new category, but two AccountFragment after new transaction
+
+                        con.removeAllFragments1();//todo BAD, two AccountFragment after new category and transaction
+
+//                        getActivity().getFragmentManager().popBackStack();//todo con.removeAllFragments()+ this popBackStack full OK
 
                         ((MainActivity)getActivity()).installFragment(new AccountFragment(), false);
                     }

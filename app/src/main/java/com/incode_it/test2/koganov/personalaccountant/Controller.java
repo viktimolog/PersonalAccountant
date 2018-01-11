@@ -186,6 +186,23 @@ public class Controller
         }
     }
 
+    public void removeAllFragments()
+    {
+        ma.getFragmentManager().beginTransaction().remove(ma.getFragmentManager().findFragmentById(R.id.F1MA)).commit();
+    }
+
+    public void removeAllFragments1()
+    {
+        int count = 0;
+
+        count = ma.getFragmentManager().getBackStackEntryCount();
+
+        for(int i=0; i< count; i++)
+        {
+            ma.getFragmentManager().popBackStack();
+        }
+    }
+
     public void setPrice()
     {
         URL oracle = null;

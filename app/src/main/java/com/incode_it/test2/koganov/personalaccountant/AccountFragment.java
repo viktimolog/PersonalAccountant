@@ -57,7 +57,8 @@ public class AccountFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
     }
 
@@ -93,7 +94,7 @@ public class AccountFragment extends Fragment {
         {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).installFragment(new AddAccountFragment(), true);
+                ((MainActivity)getActivity()).installFragment(new AddAccountFragment(), true);//todo
 
             }
         });
@@ -105,15 +106,13 @@ public class AccountFragment extends Fragment {
 
                 con.setCurAccount(spinnerAccounts.getSelectedItemPosition());
 
-                Log.d("MyTag",Integer.toString(con.getCurAccount()));
-
                 if(con.getCurAccount()==-1)
                 {
                     Toast.makeText(getActivity(), "Sorry, you do not have any acoounts!", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    ((MainActivity)getActivity()).installFragment(new NewTransactionFragment(), true);
+                    ((MainActivity)getActivity()).installFragment(new NewTransactionFragment(), true);//todo true need
                 }
 
             }//end onClick
