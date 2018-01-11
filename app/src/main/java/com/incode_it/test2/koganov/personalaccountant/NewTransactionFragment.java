@@ -3,7 +3,6 @@ package com.incode_it.test2.koganov.personalaccountant;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +56,6 @@ public class NewTransactionFragment extends Fragment {
                 , masTypeTrans)
         {
 
-            // Disable click item < month current
             @Override
             public boolean isEnabled(int position) {
 
@@ -188,7 +186,7 @@ public class NewTransactionFragment extends Fragment {
             {
                 if(spTypeTransaction.getSelectedItem().toString().equals("Transfer"))
                 {
-                    etRecipient.setText("Select recipient from list "+(char)11014);
+                    etRecipient.setText("Select partner from list "+(char)11014);
                     etRecipient.setEnabled(false);
                     spToAcc.setVisibility(View.VISIBLE);
                     refreshSpinnerAccounts();
@@ -196,7 +194,7 @@ public class NewTransactionFragment extends Fragment {
                 else
                 {
                     etRecipient.setText("");
-                    etRecipient.setHint("Recipient not necessary");
+                    etRecipient.setHint(getString(R.string.hintPartner));
                     etRecipient.setEnabled(true);
                     spToAcc.setVisibility(View.INVISIBLE);
                 }
@@ -213,7 +211,7 @@ public class NewTransactionFragment extends Fragment {
 
                 con.setCurTypeTrans(spTypeTransaction.getSelectedItemPosition());
 
-                ((MainActivity)getActivity()).installFragment(new NewCategoryTransFragment(), false);//todo
+                ((MainActivity)getActivity()).installFragment(new NewCategoryTransFragment(), true);
 
             }
         });
@@ -255,14 +253,7 @@ public class NewTransactionFragment extends Fragment {
 
                         con.handleNewTransaction(trans);
 
-
-                        con.removeAllFragments();//todo OK if with new category, but two AccountFragment after new transaction
-
-                        con.removeAllFragments1();//todo BAD, two AccountFragment after new category and transaction
-
-//                        getActivity().getFragmentManager().popBackStack();//todo con.removeAllFragments()+ this popBackStack full OK
-
-                        ((MainActivity)getActivity()).installFragment(new AccountFragment(), false);
+                        getActivity().onBackPressed();
                     }
                 }
             }
@@ -271,4 +262,13 @@ public class NewTransactionFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        refreshSpinnerCategories();
+
+        refreshSpTypeTransaction();
+
+    }
 }

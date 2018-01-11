@@ -2,7 +2,6 @@ package com.incode_it.test2.koganov.personalaccountant;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +93,7 @@ public class AccountFragment extends Fragment {
         {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).installFragment(new AddAccountFragment(), true);//todo
+                ((MainActivity)getActivity()).installFragment(new AddAccountFragment(), true);
 
             }
         });
@@ -112,14 +111,19 @@ public class AccountFragment extends Fragment {
                 }
                 else
                 {
-                    ((MainActivity)getActivity()).installFragment(new NewTransactionFragment(), true);//todo true need
+                    ((MainActivity)getActivity()).installFragment(new NewTransactionFragment(), true);
                 }
 
             }//end onClick
 
-        });//end View.OnClickListener()
+        });
 
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshSpinner();
+    }
 }

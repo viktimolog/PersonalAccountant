@@ -12,7 +12,7 @@ public class Account
     private String currency;
     private ArrayList<Transaction> transactions;
 
-    public Account()
+    public Account()//required for Firebase
     {
         transactions = new ArrayList<>();
     }

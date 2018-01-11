@@ -1,7 +1,6 @@
 package com.incode_it.test2.koganov.personalaccountant;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -186,23 +185,6 @@ public class Controller
         }
     }
 
-    public void removeAllFragments()
-    {
-        ma.getFragmentManager().beginTransaction().remove(ma.getFragmentManager().findFragmentById(R.id.F1MA)).commit();
-    }
-
-    public void removeAllFragments1()
-    {
-        int count = 0;
-
-        count = ma.getFragmentManager().getBackStackEntryCount();
-
-        for(int i=0; i< count; i++)
-        {
-            ma.getFragmentManager().popBackStack();
-        }
-    }
-
     public void setPrice()
     {
         URL oracle = null;
@@ -248,8 +230,6 @@ public class Controller
         }
 
         sb.append("}");
-
-        Log.d("MyTag", sb.toString());//OK
 
         banks=null;
 

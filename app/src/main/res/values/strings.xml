@@ -20,6 +20,7 @@
     <string name="InputNewCategory">Input name for new category:</string>
     <string name="StartAmountNewAccount">0</string>
     <string name="hintPartner">Partner, not necessary</string>
+    <string name="etDescription">Description, not necessary</string>
 
     <string-array name="currency">
         <item>UAH</item>

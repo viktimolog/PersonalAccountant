@@ -12,7 +12,6 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -194,6 +193,15 @@ public class MainActivity extends Activity
 
     public Controller getCon() {
         return con;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            this.finish();
+        } else {
+            getFragmentManager().popBackStackImmediate();
+        }
     }
 }
 

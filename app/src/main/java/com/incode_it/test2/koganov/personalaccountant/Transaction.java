@@ -10,7 +10,7 @@ public class Transaction
     private String recipient;
 
 
-    public Transaction()
+    public Transaction()//required for Firebase
     {
         dateTime="";
         description="";
@@ -38,8 +38,6 @@ public class Transaction
         {
             str+= (char)9650;
         }
-
-//        str += dateTime + "\n" + type + "; " + category +";" + description + "; " + Double.toString(sum)+"; "+recipient;
 
         str += dateTime + "\n" + "Type: " + type + "\n" + "Category: " + category +"\n" + "Description: " + description + "\n"
                 + "Sum: " + Double.toString(sum)+"\n"+"Partner: " + recipient;

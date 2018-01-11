@@ -1,7 +1,5 @@
 package com.incode_it.test2.koganov.personalaccountant;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -49,8 +47,8 @@ public class NewCategoryTransFragment extends Fragment {
                         con.getUser().getCategoriesTransaction().add(etNewCategory.getText().toString());
                         con.addNewCategotyTrans();
 
-//                        getFragmentManager().popBackStack();
-                        ((MainActivity) getActivity()).installFragment(new NewTransactionFragment(), false);//todo
+                      getActivity().onBackPressed();
+
                     }
                     else {
                         Toast.makeText(getActivity(), "Sorry, this category has already created!", Toast.LENGTH_LONG).show();
